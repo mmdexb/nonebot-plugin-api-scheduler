@@ -27,29 +27,29 @@ _✨ 像操作API一样设置定时任务&计划任务✨_
 
 ## 📖 介绍
 
-通过NoneBot的FastAPI服务器来提供API，使得您能够对定时任务&计划任务进行增删改查。
+通过NoneBot的FastAPI服务器来提供API，使得您能够对定时任务&计划任务进行增删改查。同时也提供了一个简易的WebUI
 
 ## 💿 安装
 
 <details open>
 <summary>使用 nb-cli 安装</summary>
-在 nonebot2 项目的根目录下打开命令行, 首先安装前置依赖nonebot_plugin_apscheduler
-    nb plugin install nonebot_plugin_apscheduler
-接下来安装本插件
-    nb plugin install nonebot_plugin_api-scheduler
+在 nonebot2 项目的根目录下打开命令行<br> 首先安装前置依赖nonebot_plugin_apscheduler <br>
+    nb plugin install nonebot_plugin_apscheduler <br>
+接下来安装本插件<br>
+    nb plugin install nonebot_plugin_api-scheduler<br>
 
 </details>
 
 <details>
 <summary>使用包管理器安装</summary>
-在 nonebot2 项目的插件目录下, 打开命令行, 根据你使用的包管理器, 输入相应的安装命令
-
-<details>
+在 nonebot2 项目的插件目录下, 打开命令行, 根据你使用的包管理器, 输入相应的安装命令<br>
 <summary>pip</summary>
-    pip install nonebot_plugin_apscheduler
-    pip install nonebot_plugin_api-scheduler
+首先安装前置依赖nonebot_plugin_apscheduler  <br>
+    pip install nonebot_plugin_apscheduler<br>
+接下来安装本插件  <br>
+    pip install nonebot_plugin_api-scheduler<br>
 </details>
-<details>
+
 
 
 ## ⚙️ 配置
