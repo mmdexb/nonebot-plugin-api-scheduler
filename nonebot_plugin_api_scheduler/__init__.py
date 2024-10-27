@@ -1,4 +1,5 @@
 import nonebot
+nonebot.init(driver="~fastapi+~httpx+~websockets")
 from nonebot import require
 require('nonebot_plugin_apscheduler')
 from nonebot import get_asgi
