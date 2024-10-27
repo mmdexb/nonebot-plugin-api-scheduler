@@ -1,6 +1,7 @@
 import nonebot
 from nonebot import require
 require('nonebot_plugin_apscheduler')
+from nonebot import get_asgi
 from nonebot.plugin import PluginMetadata
 from nonebot_plugin_apscheduler import scheduler
 from fastapi import FastAPI, Depends, HTTPException, status
@@ -23,7 +24,7 @@ __plugin_meta__ = PluginMetadata(
     homepage="{https://github.com/mmdexb/nonebot-plugin-api-scheduler/}",
     supported_adapters={"~onebot.v11"},
 )
-app: FastAPI = nonebot.get_app()
+app = get_asgi()
 security = HTTPBasic()
 
 async def do_send(bot: Bot, msg: str, img_url: str, qqgroup_id: str, is_at_all: bool):
