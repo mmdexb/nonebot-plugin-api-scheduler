@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-api-scheduler"
-version = "1.0.4"
+version = "1.0.5"
 description = "像操作API一样设置定时任务&计划任务"
 authors = ["mmdexb"]
 license = " GPL-3.0 license"
