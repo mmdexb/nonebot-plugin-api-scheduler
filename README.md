@@ -62,6 +62,6 @@ _✨ 像操作API一样设置定时任务&计划任务✨_
 
 
 ## 使用方法
-[API文档](https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/API.md)
-[WebUI]
+[API文档](https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/API.md) <br>
+[WebUI文档](https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/wiki.md)
 
