@@ -12,9 +12,9 @@ _✨ 像操作API一样设置定时任务&计划任务✨_
 
 
 <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/owner/nonebot-plugin-template.svg" alt="license">
+    <img src="https://img.shields.io/github/license/mmdexb/nonebot-plugin-api-scheduler.svg" alt="license">
 </a>
-<a href="https://pypi.python.org/pypi/nonebot-plugin-template">
+<a href="https://pypi.python.org/pypi/nonebot-plugin-api-scheduler">
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-template.svg" alt="pypi">
 </a>
 <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="python">
