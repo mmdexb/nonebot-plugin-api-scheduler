@@ -61,5 +61,7 @@ _✨ 像操作API一样设置定时任务&计划任务✨_
 | fastapi_docs_url = "/doc" | 否 | 无 | 设置fastapi文档地址 |
 
 
-## API文档
-如果有效果图的话
+## 使用方法
+[API文档](https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/API.md)
+[WebUI]
+
