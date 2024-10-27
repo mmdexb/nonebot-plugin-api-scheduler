@@ -1,5 +1,5 @@
 import nonebot
-nonebot.init(driver="~fastapi+~httpx+~websockets")
+nonebot.init(driver="~fastapi")
 from nonebot import require
 require('nonebot_plugin_apscheduler')
 from nonebot.plugin import PluginMetadata
