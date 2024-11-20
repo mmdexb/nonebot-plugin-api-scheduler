@@ -1,9 +1,22 @@
 import nonebot
-nonebot.init(driver="~fastapi")
-from nonebot import require
-require('nonebot_plugin_apscheduler')
+from nonebot.log import logger
+from importlib.util import find_spec
+
+# 检查是否安装 fastapi 驱动器
+if find_spec("nonebot.adapters.fastapi"):
+    nonebot.init(driver="~fastapi")
+else:
+    logger.warning("FastAPI 驱动器未安装，请安装后重试：pip install nonebot2[fastapi]")
+
+# 检查是否安装 nonebot_plugin_apscheduler 插件
+if find_spec("nonebot_plugin_apscheduler"):
+    from nonebot import require
+    require('nonebot_plugin_apscheduler')
+    from nonebot_plugin_apscheduler import scheduler
+else:
+    logger.warning("插件 nonebot_plugin_apscheduler 未安装，请安装后重试：pip install nonebot-plugin-apscheduler")
+
 from nonebot.plugin import PluginMetadata
-from nonebot_plugin_apscheduler import scheduler
 from fastapi import FastAPI, Depends, HTTPException, status
 from nonebot.adapters.onebot.v11 import (
     Bot,
@@ -24,6 +37,7 @@ __plugin_meta__ = PluginMetadata(
     homepage="{https://github.com/mmdexb/nonebot-plugin-api-scheduler/}",
     supported_adapters={"~onebot.v11"},
 )
+
 app: FastAPI = nonebot.get_app()
 security = HTTPBasic()
 
@@ -59,6 +73,9 @@ class scheduler_model(BaseModel):
 
 @app.post("/scheduler/timer")
 async def scheduler_timer(timer: timer_model):
+    if not find_spec("nonebot_plugin_apscheduler"):
+        return {"code": 500, "msg": "插件未安装，无法设置任务"}
+    
     timestamp = timer.timestamp
     run_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
     try:
@@ -71,6 +88,9 @@ async def scheduler_timer(timer: timer_model):
 
 @app.post("/scheduler/plan")
 async def scheduler_plan(plan: scheduler_model):
+    if not find_spec("nonebot_plugin_apscheduler"):
+        return {"code": 500, "msg": "插件未安装，无法设置任务"}
+    
     day = plan.day
     hour = plan.hour
     minute = plan.minute
@@ -86,12 +106,18 @@ async def scheduler_plan(plan: scheduler_model):
 
 @app.get("/scheduler/cancel")
 async def scheduler_cancel(job_id: str):
+    if not find_spec("nonebot_plugin_apscheduler"):
+        return {"code": 500, "msg": "插件未安装，无法取消任务"}
+    
     scheduler.remove_job(job_id)
     return {"code": 200, "msg": "任务已取消"}
 
 
 @app.get("/scheduler/list")
 async def scheduler_list():
+    if not find_spec("nonebot_plugin_apscheduler"):
+        return {"code": 500, "msg": "插件未安装，无法获取任务列表"}
+    
     jobs = scheduler.get_jobs()
     job_list = []
     for job in jobs:
