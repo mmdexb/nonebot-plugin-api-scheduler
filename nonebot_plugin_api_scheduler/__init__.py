@@ -1,6 +1,7 @@
 import nonebot
 from nonebot.log import logger
 from nonebot.adapters import Adapter
+from nonebot import get_plugin_config, require
 from nonebot.plugin import PluginMetadata
 from nonebot.adapters.onebot.v11 import (
     Bot,
@@ -11,15 +12,13 @@ import time
 from pydantic import BaseModel
 from datetime import datetime
 __plugin_meta__ = PluginMetadata(
-    name="{nonebot-plugin-api-scheduler}",
-    description="{像操作API一样设置定时任务&计划任务}",
-    usage="{https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/README.md}",
-    type="{application}",
-    homepage="{https://github.com/mmdexb/nonebot-plugin-api-scheduler/}",
+    name="nonebot-plugin-api-scheduler",
+    description="像操作API一样设置定时任务&计划任务",
+    usage="https://github.com/mmdexb/nonebot-plugin-api-scheduler/blob/master/README.md",
+    type="application",
+    homepage="https://github.com/mmdexb/nonebot-plugin-api-scheduler/",
     supported_adapters={"~onebot.v11"},
 )
-
-
 class timer_model(BaseModel):
     # 在时间戳执行
     timestamp: str  # 2024-10-18 18:00:00
