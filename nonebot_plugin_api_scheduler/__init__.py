@@ -1,7 +1,7 @@
 import nonebot
 from nonebot.log import logger
 from nonebot.adapters import Adapter
-from nonebot import get_plugin_config, require
+from nonebot import get_plugin_config
 from nonebot.plugin import PluginMetadata
 from nonebot.adapters.onebot.v11 import (
     Bot,
