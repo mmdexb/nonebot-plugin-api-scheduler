@@ -2,19 +2,14 @@ import nonebot
 from nonebot.log import logger
 from importlib.util import find_spec
 
-# 检查是否安装 fastapi 驱动器
-if find_spec("nonebot.adapters.fastapi"):
-    nonebot.init(driver="~fastapi")
-else:
+if not find_spec("nonebot.adapters.fastapi"):
     logger.warning("FastAPI 驱动器未安装，请安装后重试：pip install nonebot2[fastapi]")
+    raise RuntimeError("FastAPI 驱动器未安装，停止插件加载")
 
 # 检查是否安装 nonebot_plugin_apscheduler 插件
-if find_spec("nonebot_plugin_apscheduler"):
-    from nonebot import require
-    require('nonebot_plugin_apscheduler')
-    from nonebot_plugin_apscheduler import scheduler
-else:
+if not find_spec("nonebot_plugin_apscheduler"):
     logger.warning("插件 nonebot_plugin_apscheduler 未安装，请安装后重试：pip install nonebot-plugin-apscheduler")
+    raise RuntimeError("nonebot_plugin_apscheduler 插件未安装，停止插件加载")
 
 from nonebot.plugin import PluginMetadata
 from fastapi import FastAPI, Depends, HTTPException, status
