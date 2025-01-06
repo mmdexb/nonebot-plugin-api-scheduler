@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduler Control Panel</title>
+    <script>
+        async function fetchAPI(endpoint, method, body) {
+            const url = `http://127.0.0.1:8080${endpoint}`;
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body ? JSON.stringify(body) : null
+            };
+            const response = await fetch(url, options);
+            const data = await response.json();
+
+            // 检测返回的 code 并弹出对话框
+            if (data.code === 200) {
+                alert(data.msg);
+            } else if (data.code === 500) {
+                alert(data.msg);
+            }
+
+            return data; // 返回数据
+        }
+
+        function getSchedulerTimer() {
+            const timerData = {
+                timestamp: document.getElementById('timestamp').value,
+                content: document.getElementById('content').value,
+                img_url: document.getElementById('img_url').value,
+                qqgroup_id: document.getElementById('qqgroup_id').value,
+                is_at_all: document.getElementById('is_at_all').checked
+            };
+            fetchAPI('/scheduler/timer', 'POST', timerData);
+        }
+
+        function getSchedulerPlan() {
+            const planData = {
+                day: document.getElementById('day').value,
+                hour: document.getElementById('hour').value,
+                minute: document.getElementById('minute').value,
+                second: document.getElementById('second').value,
+                content: document.getElementById('content2').value,
+                img_url: document.getElementById('img_url2').value,
+                qqgroup_id: document.getElementById('qqgroup_id2').value,
+                is_at_all: document.getElementById('is_at_all2').checked
+            };
+            fetchAPI('/scheduler/plan', 'POST', planData);
+        }
+
+        function cancelSchedulerJob() {
+            const jobId = document.getElementById('job_id').value;
+            fetchAPI(`/scheduler/cancel?job_id=${jobId}`, 'GET');
+        }
+
+        async function listSchedulerJobs() {
+            const data = await fetchAPI('/scheduler/list', 'GET');
+            if (data.code === 200) {
+                renderJobTable(data.data);  // 假设返回数据中包含任务列表
+            }
+        }
+
+        // 渲染任务列表为表格
+        function renderJobTable(jobs) {
+            const table = document.getElementById('jobTable');
+            table.innerHTML = ''; // 清空表格
+
+            // 表头
+            const header = table.insertRow();
+            header.innerHTML = `
+                <th>Job ID</th>
+                <th>name</th>
+                <th>next_run_time</th>
+                <th>trigger</th>
+                <th>send_to</th>
+                <th>send_what</th>
+            `;
+
+            // 填充表格数据
+            jobs.forEach(job => {
+                const row = table.insertRow();
+                row.innerHTML = `
+                    <td>${job.id}</td>
+                    <td>${job.name}</td>
+                    <td>${job.next_run_time}</td>
+                    <td>${job.trigger}</td>
+                    <td>${job.send_to}</td>
+                    <td>${job.send_what}</td>
+                `;
+            });
+        }
+
+        // 页面加载时调用 list 接口
+        window.onload = function() {
+            listSchedulerJobs();
+        };
+    </script>
+</head>
+<body>
+<h1>Scheduler Control Panel</h1>
+
+<div>
+    <h3>Scheduler Timer</h3>
+    <input type="text" id="timestamp" placeholder="何时发送任务"><br>
+    <span>格式为 YYYY-MM-DD HH:MM:SS</span>
+    <br>
+    <input type="text" id="content" placeholder="Content"><br>
+    <input type="text" id="img_url" placeholder="Image URL"><br>
+    <input type="text" id="qqgroup_id" placeholder="QQ Group ID"><br>
+    <label><input type="checkbox" id="is_at_all"> Is At All</label><br>
+    <button onclick="getSchedulerTimer()">Get Scheduler Timer</button>
+</div>
+
+<div>
+    <h3>Scheduler Plan</h3>
+    <input type="number" id="day" placeholder="每隔几天发送一次"><br>
+    <input type="number" id="hour" placeholder="几时"><br>
+    <input type="number" id="minute" placeholder="几分"><br>
+    <input type="number" id="second" placeholder="几秒"><br>
+    <input type="text" id="content2" placeholder="Content"><br>
+    <input type="text" id="img_url2" placeholder="Image URL"><br>
+    <input type="text" id="qqgroup_id2" placeholder="QQ Group ID"><br>
+    <label><input type="checkbox" id="is_at_all2"> Is At All</label><br>
+    <button onclick="getSchedulerPlan()">Get Scheduler Plan</button>
+</div>
+
+<div>
+    <h3>Cancel Scheduler Job</h3>
+    <input type="text" id="job_id" placeholder="Job ID"><br>
+    <button onclick="cancelSchedulerJob()">Cancel Job</button>
+</div>
+
+<div>
+    <h3>List Scheduler Jobs</h3>
+    <table id="jobTable" border="1"></table>
+    <button onclick="listSchedulerJobs()">List Jobs</button>
+</div>
+
+<pre id="response"></pre>
+</body>
+</html>
