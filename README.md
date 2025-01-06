@@ -37,7 +37,8 @@ _✨ 像操作API一样设置定时任务&计划任务✨_
     nb plugin install nonebot_plugin_apscheduler <br>
 接下来安装本插件<br>
     nb plugin install nonebot_plugin_api-scheduler<br>
-
+<br> 将nonebot-plugin-api-scheduler目录下dashboard.html放入bot根目录下,即包含.env文件的目录下。
+<br>
 </details>
 
 <details>
